@@ -3,9 +3,9 @@
 #include <BlynkSimpleEsp32.h>
 
 
-char auth[] = "";
-char ssid[] = "55";
-char pass[] = "12345678";
+char auth[] = "aAISQlGcE-5UZxxipP0qxafbXHSFBJEt";
+char ssid[] = "Eleceasy";
+char pass[] = "Bb20072536";
 char server[] = "oasiskit.com";
 unsigned port = 8080;
 
@@ -71,6 +71,7 @@ void setup(){
 }
 
 void loop(){
+    ReadsoilsensorValue();
     Serial.print("SoilAverage : "); Serial.print(averagesoilsensorValue); Serial.println("%");
     
     Blynk.run();
@@ -120,7 +121,7 @@ int ReadsoilsensorValue(){
         // Serial.print("Soil_3 :"); Serial.print(mapSoilSensorValue_3); Serial.println("%");
         // Serial.print("Soil_4 :"); Serial.print(mapSoilSensorValue_4); Serial.println("%");
 
-        SoilSensorValue = ((mapSoilSensorValue_1 + mapSoilSensorValue_2 + mapSoilSensorValue_3 + mapSoilSensorValue_4)/ 4) ;       
+        SoilSensorValue = 10 ;       
         //Serial.print("SoilAverage : "); Serial.print(SoilSensorValue); Serial.println("%");
         return SoilSensorValue;
     }
