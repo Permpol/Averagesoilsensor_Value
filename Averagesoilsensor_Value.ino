@@ -37,7 +37,7 @@ WidgetLED LedBlynkPump(Widget_LED_Pump);
 #define Relay1_pump  32
 
 //ประกาศตัวแปร
-int averagesoilsensorValue = ReadsoilsensorValue(); //ค่าเฉลี่ย soilsensor คิดเป็นเปอร์เซน
+int averagesoilsensorValue; //ค่าเฉลี่ย soilsensor คิดเป็นเปอร์เซน
 int SoilSensorValue;
 
 void setup(){
@@ -71,7 +71,6 @@ void setup(){
 }
 
 void loop(){
-    ReadsoilsensorValue();
     Serial.print("SoilAverage : "); Serial.print(averagesoilsensorValue); Serial.println("%");
     
     Blynk.run();
@@ -100,7 +99,7 @@ BLYNK_WRITE(Widget_Btn_Pump){
 }
 
 
-int ReadsoilsensorValue(){
+int ReadsoilsensorValue(int _SoilSensorValue){
     static unsigned long timer1 = millis();
     const unsigned long period = 1000; 
     if(millis() - timer1 >= period){
@@ -121,13 +120,16 @@ int ReadsoilsensorValue(){
         // Serial.print("Soil_3 :"); Serial.print(mapSoilSensorValue_3); Serial.println("%");
         // Serial.print("Soil_4 :"); Serial.print(mapSoilSensorValue_4); Serial.println("%");
 
-        SoilSensorValue = 10 ;       
+        _SoilSensorValue = 10 ;  
+        averagesoilsensorValue = _SoilSensorValue;
+             
         //Serial.print("SoilAverage : "); Serial.print(SoilSensorValue); Serial.println("%");
-        return SoilSensorValue;
+        return _SoilSensorValue;
     }
 }
 
 void AutoSoilWater(){
+    ReadsoilsensorValue(averagesoilsensorValue);
     if(averagesoilsensorValue < 65 ){
         if(Widget_Btn_Pump == 1){
 
